@@ -1,0 +1,14 @@
+Opção 1: Digitar log + Tab
+Digite log no seu arquivo.
+Pressione a tecla Tab.
+O código console.log(); será inserido automaticamente. 
+
+Opção 2: Digitar clg + Ctrl + Space + Enter
+Digite clg.
+Pressione Ctrl + Space para abrir a lista de sugestões.
+Pressione Enter na opção que aparece para console.log(). 
+
+Opção 3: Autocompletar com o IntelliSense
+Comece a digitar a palavra console.
+O Visual Studio Code deve oferecer a sugestão console.log().
+Pressione Enter para aceitar a sugestão e inserir o código. 
