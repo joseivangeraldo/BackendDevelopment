@@ -12,3 +12,61 @@ Opção 3: Autocompletar com o IntelliSense
 Comece a digitar a palavra console.
 O Visual Studio Code deve oferecer a sugestão console.log().
 Pressione Enter para aceitar a sugestão e inserir o código. 
+
+ARQUIVOS:
+.env:
+MYSQL_DATABASE=wp_db
+MYSQL_USER=wp_user
+MYSQL_PASSWORD=wp_user_password
+MYSQL_ROOT_PASSWORD=wp_root_password
+MYSQL_HOST=db
+
+devcontainer.json
+{
+	"name": "WP Enviroment Basic",
+	"dockerComposeFile": [
+	  "docker-compose.yml"
+	],
+	"service": "wordpress",
+	"workspaceFolder": "/var/www/html",
+	"customizations": {
+		"vscode": {
+			"extensions": [],
+			"settings": {
+				"php.executablePath": "/usr/local/bin/php",
+				"php.validate.executablePath": "/usr/local/bin/php"
+			}
+		}
+	},
+	"remoteUser": "root"
+}
+  
+docker-compose.yml:
+services:
+  wordpress:
+    depends_on:
+      - db
+    image: wordpress:latest
+    ports:
+      - 80:80
+    environment:
+      WORDPRESS_DB_HOST: ${MYSQL_HOST}
+      WORDPRESS_DB_NAME: ${MYSQL_DATABASE}
+      WORDPRESS_DB_USER: ${MYSQL_USER}
+      WORDPRESS_DB_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - wordpress:/var/www/html
+
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - db:/var/lib/mysql
+
+volumes:
+  wordpress:
+  db:
